@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="spring-config-datasource.xml"/>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="quick4jPersistenceUnit"/>
+        <property name="packagesToScan" value="com.github.loafer.*.*.entity"/>
+        <!--
+            注意:对于MySql数据库org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
+            会将长度大于255的String映射为longtext，针对这个问题你可以使用
+            columnDefinition这个属性来修改，例如：columnDefinition="varchar(800)"
+            Hibernate不存在此类问题，所以配置上不建议设置jpaVendorAdapter属性
+
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
+        -->
+
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.ejb.HibernatePersistence"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
