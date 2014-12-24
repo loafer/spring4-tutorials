@@ -20,7 +20,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    public ResponseResult processControllerValidationException(HttpServletRequest request, BindException ex){
+    public ResponseResult processBindException(HttpServletRequest request, BindException ex){
         String url = request.getRequestURL().toString();
 
         StringBuilder message = new StringBuilder();
@@ -31,12 +31,12 @@ public class ControllerExceptionHandler {
             message.append(",").append(fieldError.getDefaultMessage());
         }
 
-        return new ResponseResult(false, url, message.length()>1 ? message.toString().substring(1) : "error");
+        return new ResponseResult(false, url, message.length()>1 ? message.toString().substring(1) : "binding errors.");
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
-    public ResponseResult processServiceValidationException(HttpServletRequest request, ConstraintViolationException ex){
+    public ResponseResult processConstraintViolationException(HttpServletRequest request, ConstraintViolationException ex){
         String url = request.getRequestURL().toString();
 
         StringBuilder message = new StringBuilder();
