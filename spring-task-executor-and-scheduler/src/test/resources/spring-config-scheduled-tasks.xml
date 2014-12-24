@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <task:scheduled-tasks scheduler="scheduler">
+        <task:scheduled ref="chinese" method="sayHello" fixed-rate="1000"/>
+        <task:scheduled ref="english" method="sayHello" fixed-rate="1000"/>
+    </task:scheduled-tasks>
+
+    <task:scheduler id="scheduler" pool-size="10"/>
+
+    <bean id="chinese"
+          class="com.github.loafer.task.normal.Chinese"/>
+
+    <bean id="english"
+          class="com.github.loafer.task.normal.English"/>
+</beans>
