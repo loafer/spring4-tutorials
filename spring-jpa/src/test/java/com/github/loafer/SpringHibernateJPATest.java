@@ -10,11 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-config-hibernate-jpa.xml")
-//@ContextConfiguration("/spring-config-eclipselink-jpa.xml")
-public class SpringJPATest {
+public class SpringHibernateJPATest {
 
     @Test
-    public void test(){
+    public void testGenerateSchema(){
         System.out.println("start.");
     }
 }
