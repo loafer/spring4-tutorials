@@ -4,29 +4,29 @@
              http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
-    <persistence-unit name="eclipselink.jpa" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <persistence-unit name="eclipselinkUnit" transaction-type="RESOURCE_LOCAL">
+        <class>com.github.loafer.upm.users.entity.Action</class>
         <!--
                 <class>com.github.loafer.upm.users.entity.Action</class>
                 <class>com.github.loafer.upm.users.entity.Path</class>
                 <class>com.github.loafer.upm.users.entity.Role</class>
                 <class>com.github.loafer.upm.users.entity.User</class>
         -->
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-<!--
         <properties>
+
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quick4j-test" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="123" />
 
-            <property name="eclipselink.weaving" value="false"/>
-
             <property name="eclipselink.ddl-generation" value="create-tables" />
+            <!--<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />-->
+            <!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />-->
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
-            <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog"/>
-            <property name="eclipselink.logging.level" value="INFO"/>
+            <property name="eclipselink.logging.level" value="FINEST"/>
+
+            <!--<property name="eclipselink.deploy-on-startup" value="true"/>-->
         </properties>
--->
+
     </persistence-unit>
 </persistence> 

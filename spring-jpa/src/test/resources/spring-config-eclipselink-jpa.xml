@@ -10,55 +10,27 @@
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="persistenceUnitName" value="eclipselink.jpa"/>
+        <property name="persistenceUnitName" value="eclipselinkUnit"/>
         <property name="packagesToScan" value="com.github.loafer.*.*.entity"/>
+        <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence_jpa.xml"/>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"/>
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+                <property name="database" value="MYSQL"/>
+                <property name="databasePlatform" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
+            </bean>
         </property>
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
         </property>
-        <property name="loadTimeWeaver">
-            <bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver" />
-        </property>
-        <!--
-        <property name="jpaProperties">
-            <props merge="true">
+        <property name="jpaPropertyMap">
+            <props>
                 <prop key="eclipselink.weaving">false</prop>
-                <prop key="eclipselink.logging.logger">org.eclipse.persistence.logging.DefaultSessionLog</prop>
-                <prop key="eclipselink.logging.level">INFO</prop>
-                <prop key="eclipselink.ddl-generation">create-tables</prop>
-                <prop key="eclipselink.ddl-generation.output-mode">database</prop>
-                <prop key="eclipselink.target-database">org.eclipse.persistence.platform.database.MySQLPlatform</prop>
-                <prop key="javax.persistence.transactionType">RESOURCE_LOCAL</prop>
+                <prop key="eclipselink.logging.level">FINEST</prop>
+                <!-- 如果不指定此参数, 与Spring 集成时则无法根据entity生成表结构 -->
+                <prop key="eclipselink.deploy-on-startup">true</prop>
             </props>
         </property>
-        -->
     </bean>
-
-
-<!--
-    <bean id="jpaVendorAdapter"
-          class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
-        <property name="databasePlatform" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
-        <property name="generateDdl" value="true"/>
-        <property name="showSql" value="true"/>
-    </bean>
-
-    <bean id="persistenceUnitManager"
-          class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
-        <property name="persistenceXmlLocations">
-            <list>
-                <value>classpath:META-INF/persistence.xml</value>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-    </bean>
--->
-
 </beans>
