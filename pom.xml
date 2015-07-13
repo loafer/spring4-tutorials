@@ -12,6 +12,8 @@
         <module>spring-jpa</module>
         <module>spring-event</module>
         <module>spring-validator</module>
+        <module>spring-ioc</module>
+        <module>spring-mvc</module>
     </modules>
     <packaging>pom</packaging>
 
