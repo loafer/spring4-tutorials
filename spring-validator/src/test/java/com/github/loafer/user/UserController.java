@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 演示Controller中的方法验证
@@ -31,7 +32,7 @@ public class UserController {
             produces = "application/json;charset=utf-8"
     )
     @ResponseBody
-    public ResponseResult save(User user){
+    public ResponseResult save(@Valid User user){
         logger.info("===>{}", user);
         userService.save(user);
         return new ResponseResult(true);
