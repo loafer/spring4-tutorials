@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <security:http pattern="/index.jsp" security="none"/>
+    <security:http pattern="/static/**" security="none"/>
+    <security:http >
+        <security:form-login login-page="/"
+                             default-target-url=""
+                             authentication-failure-url="index.jsp"
+                             always-use-default-target="true"/>
+
+        <security:logout logout-success-url="" invalidate-session="true"/>
+
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="userDetailsService"/>
+    </security:authentication-manager>
+
+
+    <bean id="userDetailsService"
+          class="com.github.loafer.demo.security.UserDetailsServiceImpl"/>
 </beans>

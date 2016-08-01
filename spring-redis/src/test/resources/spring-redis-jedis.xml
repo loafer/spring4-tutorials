@@ -14,6 +14,10 @@
           class="org.springframework.data.redis.core.RedisTemplate"
           p:connectionFactory-ref="jedisFactory"/>
 
+    <bean id="stringRedisTemplate"
+          class="org.springframework.data.redis.core.StringRedisTemplate"
+          p:connectionFactory-ref="jedisFactory"/>
+
     <!--<bean id="genericJackson2JsonRedisSerializer"
           class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
     <bean id="stringRedisSerializer"
